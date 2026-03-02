@@ -1,2 +1,4 @@
 onlyBuiltDependencies:
   - protobufjs
+packages:
+  - express_app
