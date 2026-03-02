@@ -20,11 +20,12 @@ FROM gcr.io/distroless/nodejs25-debian12:latest
 
 WORKDIR /app/express_app
 
-COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/express_app /app/express_app
+COPY --from=builder /app/instrumentation.js /app/instrumentation.js
+COPY --from=builder /app/node_modules /app/node_modules
 
 EXPOSE 3000
 
 ENTRYPOINT [ "node" ]
 
-CMD [ "--import=./instrumentation.js", "bin/www" ]
+CMD [ "--import=/app/instrumentation.js", "bin/www" ]
