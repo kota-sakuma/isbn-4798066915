@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import logger from './logger.js';
 import morgan from 'morgan';
 import path from 'path';
+import session from 'express-session';
 import helloRouter from './routes/hello.js';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
@@ -12,6 +13,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+
+const sessionOptions = {
+  secret: 'secret_key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 * 24 },
+};
+app.use(session(sessionOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
