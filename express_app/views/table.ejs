@@ -1,0 +1,20 @@
+<%- include('header', { title: title }) %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Mail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (const item of data) { %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.mail %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include('footer') %>
