@@ -27,8 +27,17 @@ router.post('/', (req, res, next) => {
     id: req.body.id,
     pass: req.body.pass,
     db: db,
-  }
+  };
   res.render('hello', data);
 });
+
+router.post('/ajax', (req, res, next) => {
+  const result = {
+    id: req.body.id,
+    pass: req.body.pass,
+    message: 'こんにちは、' + req.body.id + 'さん！'
+  };
+  res.send(result);
+})
 
 export default router;
