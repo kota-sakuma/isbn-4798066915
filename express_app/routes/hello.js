@@ -13,6 +13,19 @@ router.get('/', (req, res, next) => {
   const data = {
     title: 'Hello!',
     message: 'これは、サンプルで追加したページです。',
+    id: '',
+    pass: '',
+    db: db,
+  }
+  res.render('hello', data);
+});
+
+router.post('/', (req, res, next) => {
+  const data = {
+    title: 'Hello!',
+    message: req.body.id + 'さん (パスワード' + req.body.pass.length + '文字)',
+    id: req.body.id,
+    pass: req.body.pass,
     db: db,
   }
   res.render('hello', data);

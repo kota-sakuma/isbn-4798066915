@@ -1,6 +1,18 @@
-<%- include('header', title) %>
+<%- include('header', { title: title }) %>
 
 <p class="my-2"><%= message %></p>
+<form method="post" action="/hello">
+  <div class="mb-3">
+    <label for="id" class="form-label">ID</label>
+    <input type="text" class="form-control" id="id" name="id" value="<%= id %>">
+  </div>
+  <div class="mb-3">
+    <label for="pass" class="form-label">Password</label>
+    <input type="password" class="form-control" id="pass" name="pass" value="<%= pass %>">
+  </div>
+  <button type="submit" class="btn btn-primary">送信</button>
+</form>
+
 <table class="table table-striped">
   <thead>
     <tr>
