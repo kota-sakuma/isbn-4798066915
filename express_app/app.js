@@ -1,11 +1,15 @@
 import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
 import express from 'express';
+import { fileURLToPath } from 'url';
 import logger from 'morgan';
 import path from 'path';
-import helloRouter from './routes/hello';
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
+import helloRouter from './routes/hello.js';
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -39,4 +43,4 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-module.exports = app;
+export default app;
