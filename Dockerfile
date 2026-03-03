@@ -1,8 +1,8 @@
-FROM node:25.7.0-bookworm-slim AS base
+FROM node:24.14.0-bookworm-slim AS base
 
-RUN npm install -g corepack && \
-  corepack enable && \
-  corepack use pnpm@latest
+RUN npm install -g corepack --force && \
+corepack enable && \
+corepack use pnpm@latest
 
 FROM base AS builder
 
@@ -10,13 +10,13 @@ WORKDIR /app
 
 COPY express_app/ pnpm-lock.yaml pnpm-workspace.yaml /app
 
-RUN pnpm fetch --prod
+RUN CI=true pnpm fetch --prod
 
 COPY ./ /app
 
-RUN pnpm install --frozen-lockfile --prod
+RUN CI=true pnpm install --frozen-lockfile --prod
 
-FROM gcr.io/distroless/nodejs25-debian12:latest
+FROM gcr.io/distroless/nodejs24-debian13:nonroot
 
 WORKDIR /app/express_app
 
@@ -25,7 +25,5 @@ COPY --from=builder /app/instrumentation.js /app/instrumentation.js
 COPY --from=builder /app/node_modules /app/node_modules
 
 EXPOSE 3000
-
-ENTRYPOINT [ "node" ]
 
 CMD [ "--import=/app/instrumentation.js", "bin/www" ]
