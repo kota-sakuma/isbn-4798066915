@@ -1,27 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body class="container">
-    <h1 class="display-4"><%= title %></h1>
-    <p><%= message %></p>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Mail</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for (const item of db) { %>
-          <tr>
-            <td><%= item.name %></td>
-            <td><%= item.mail %></td>
-          </tr>
-        <% } %>
-      </tbody>
-    </table>
-  </body>
-</html>
+<%- include('header', title) %>
+
+<p class="my-2"><%= message %></p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Mail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (const item of db) { %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.mail %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include('footer') %>
