@@ -2,12 +2,12 @@ import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
 import express from 'express';
 import { fileURLToPath } from 'url';
-import logger from 'morgan';
+import logger from './logger.js';
+import morgan from 'morgan';
 import path from 'path';
 import helloRouter from './routes/hello.js';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -17,7 +17,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+app.use(morgan('dev', { stream: logger.stream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -34,6 +34,8 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res, next) => {
+  logger.error({ error: err }, err.message);
+
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
