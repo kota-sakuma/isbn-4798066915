@@ -1,12 +1,9 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
 
-router.get('/', function (req, res, next) {
-  const data = {
-    title: 'Hello!',
-    message: 'これは、サンプルで追加したページです。'
-  }
-  res.render('hello', data);
+const router = Router();
+
+router.get('/', (req, res, next) => {
+  res.render('hello', { title: 'Hello!', message: 'これは、サンプルで追加したページです。' });
 });
 
-module.exports = router;
+export default router;
