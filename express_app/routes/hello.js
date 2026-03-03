@@ -1,43 +1,40 @@
+import logger from '../logger.js';
 import { Router } from 'express';
 
 const router = Router();
 
-const db = [
-  { name: 'taro', mail: 'taro@yamada' },
-  { name: 'hanako', mail: 'hanako@flower' },
-  { name: 'sachiko', mail: 'sachiko@happy' },
-  { name: 'jiro', mail: 'jiro@change' },
-]
-
 router.get('/', (req, res, next) => {
+  if (req.session.comments === undefined) {
+    req.session.comments = [];
+  }
+  logger.info({}, 'session created');
+
   const data = {
     title: 'Hello!',
-    message: 'これは、サンプルで追加したページです。',
-    id: '',
-    pass: '',
-    db: db,
+    message: 'フォームを入力してください。',
+    comments: req.session.comments,
   }
+  logger.info({}, 'data created');
+  logger.debug({ data: data }, 'data');
+
   res.render('hello', data);
+  logger.info({}, 'render completed');
 });
 
 router.post('/', (req, res, next) => {
+  req.session.comments.unshift(req.body.comment);
+  logger.info({}, 'session updated');
+
   const data = {
     title: 'Hello!',
-    message: req.body.id + 'さん (パスワード' + req.body.pass.length + '文字)',
-    id: req.body.id,
-    pass: req.body.pass,
-    db: db,
+    message: 'コメントを追加しました。',
+    comments: req.session.comments,
   };
-  res.render('hello', data);
-});
+  logger.info({}, 'data created');
+  logger.debug({ data: data }, 'data');
 
-router.post('/ajax', (req, res, next) => {
-  const result = {
-    id: req.body.id,
-    pass: req.body.pass,
-    message: 'こんにちは、' + req.body.id + 'さん！'
-  };
-  res.send(result);
-})
+  res.render('hello', data);
+  logger.info({}, 'render completed');
+});
 
 export default router;
