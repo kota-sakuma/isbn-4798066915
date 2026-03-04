@@ -1,6 +1,7 @@
 import cookieParser from 'cookie-parser';
 import createError from 'http-errors';
 import express from 'express';
+import 'dotenv/config';
 import { fileURLToPath } from 'url';
 import logger from './logger.js';
 import morgan from 'morgan';

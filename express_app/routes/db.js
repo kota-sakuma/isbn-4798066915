@@ -1,8 +1,10 @@
 import logger from '../logger.js';
-import { PrismaClient } from '@prisma/client';
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+import { PrismaClient } from '../../generated/prisma/client.ts';
 import { Router } from 'express';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaBetterSqlite3({ url: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 const router = Router();
 
 router.get('/', async (req, res, next) => {

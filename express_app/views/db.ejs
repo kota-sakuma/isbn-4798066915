@@ -1,0 +1,27 @@
+<%- include('header', { title: title }) %>
+
+<p class="my-2" id="msg"><%= message %></p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>email</th>
+      <th>age</th>
+      <th>update</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (item of data) { %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= item.name %></td>
+        <td><%= item.email %></td>
+        <td><%= item.age %></td>
+        <td><%= item.updatedAt %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<%- include('footer') %>
