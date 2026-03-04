@@ -5,7 +5,9 @@
     "@opentelemetry/sdk-metrics": "^2.5.1",
     "@opentelemetry/sdk-node": "^0.212.0",
     "@opentelemetry/sdk-trace-node": "^2.5.1",
+    "@prisma/adapter-better-sqlite3": "^7.4.2",
     "@prisma/client": "^7.4.2",
+    "dotenv": "^17.3.1",
     "express-session": "^1.19.0",
     "pino": "^10.3.1"
   },
@@ -14,6 +16,7 @@
     "start": "node ./express_app/bin/www",
     "start:otel": "node --import=./instrumentation.mjs ./express_app/bin/www"
   },
+  "type": "module",
   "devDependencies": {
     "pino-pretty": "^13.1.3"
   }
