@@ -6,6 +6,7 @@ import logger from './logger.js';
 import morgan from 'morgan';
 import path from 'path';
 import session from 'express-session';
+import dbRouter from './routes/db.js';
 import formRouter from './routes/form.js';
 import helloRouter from './routes/hello.js';
 import indexRouter from './routes/index.js';
@@ -35,6 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/db', dbRouter);
 app.use('/form', formRouter);
 app.use('/hello', helloRouter);
 app.use('/table', tableRouter);
